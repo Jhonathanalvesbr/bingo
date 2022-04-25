@@ -51,10 +51,6 @@ public class Controlador {
         return pessoaServico.listAll();
     }
 
-    public void up(){
-        pessoaServico.listAll();
-    }
-
     @GetMapping("/{id}")
     public PessoaDTO procruarPessoa(@PathVariable long id) throws PessoaNaoExiste {
        return pessoaServico.procurarID(id);
