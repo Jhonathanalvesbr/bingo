@@ -28,7 +28,6 @@ public class SimpleController {
         List<PessoaDTO> pessoa = pessoaServico.listAll();
         pessoa.sort(Comparator.comparing(PessoaDTO::getName));
         ConfiguracoesDTO configuracoesDTO = configuracoesServico.getConfig();
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         //System.out.println(pessoa);
         int pagamentos = 0;
