@@ -4,181 +4,297 @@
 <head>
     <title>Bolão</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-    body {
-      background: #1abc9c;
-    }
+        body {
+            background: #1abc9c;
+        }
 
-    #stiloh1 {
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+        #pago {
+            background-color: green;
+        }
 
-    #customers {
-      font-family: Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
+        #aberto {
+            background-color: red;
+        }
 
-    #customers td,
-    #customers th {
-      border: 1px solid black;
-      padding: 8px;
-    }
+        #customers tr:hover td {
+            background-color: yellow;
+        }
 
-    #customers tr {
-      background-color: white;
-    }
+        #stiloh1 {
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-    #customers tr:hover {
-      background-color: yellow;
-    }
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 98%;
+        }
 
-    #pago {
-      background-color: green;
-    }
+        #customers td,
+        #customers th {
+            border: 1px solid black;
+            padding: 8px;
+        }
 
-    #aberto {
-      background-color: red;
-    }
+        #customers tr {
+            background-color: white;
+        }
 
-    #customers tr:hover td {
-      background-color: yellow;
-    }
+        #customers tr:hover {
+            background-color: yellow;
+        }
 
-    #customers th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #282A35;
-      color: white;
-    }
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #282A35;
+            color: white;
+        }
 
-    label {
-      font-family: Arial, Helvetica, sans-serif;
-    }
+        label {
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-    .hide {
-      position: absolute;
-      top: -1px;
-      left: -1px;
-      width: 1px;
-      height: 1px;
-    }
+        .hide {
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 1px;
+            height: 1px;
+        }
 
-    label {
-      font-size: 140%;
-    }
-    div {
-    display: table-cell;
-    vertical-align: middle;
-    height: 50px;
-    text-align: left;
-}
+        label {
+            font-size: 140%;
+        }
 
-label{
-display: inline-block;
-  width: 170px;
-  vertical-align: middle;
+        .div {
+            display: table-cell;
+            vertical-align: middle;
+            height: 50px;
+            text-align: left;
+        }
 
-}
-td{
-  width: 22%;
-}
-  </style>
+        label {
+            display: inline-block;
+            width: 170px;
+            vertical-align: middle;
+        }
+
+        .h1 {
+            display: inline-block;
+            width: 400px;
+            vertical-align: middle;
+            height: 0px;
+        }
+
+
+
+
+
+        .visivel {
+            display: inline;
+        }
+
+        .invisivel {
+            display: none;
+        }
+
+        .tabelaVisivel {
+            display: inline;
+            position: relative;
+        }
+
+        table.tabelaVisivel .lotoTitle {
+            background-color: #ad028d;
+            font-size: 30px;
+            color: white;
+            margin: auto;
+            padding: 2%;
+        }
+
+        table.tabelaVisivel td {
+            background-color: #f6f4b9;
+            width: 5%;
+            border: 1px;
+            border-style: solid;
+            border-color: #ad028d;
+            text-align: center;
+            padding: 1.5%;
+        }
+
+        table.tabelaVisivel tr {
+            padding: 2%;
+        }
+
+        table.tabelaVisivel {
+            /*background-color: #f6f4b9;
+  padding-bottom: 6.8%;
+  padding-top: 2%;*/
+        }
+
+        table.tabelaVisivel .apertou {
+            background-color: green;
+        }
+
+        table.tabelaVisivel .aleatorio {
+            background-color: #1abc9c;
+            color: white;
+
+            border-style: solid;
+            border-color: #1abc9c;
+        }
+
+        .tabelaCompleta td {
+            white-space: pre;
+        }
+
+        .tabelaCompleta td {
+            width: 14%;
+        }
+
+
+
+
+
+        .tabelaCinza {
+            display: inline;
+            position: relative;
+        }
+
+        table.tabelaCinza .lotoTitle {
+            background-color: #d3d3d3;
+            font-size: 30px;
+            color: white;
+            margin: auto;
+            padding: 2%;
+        }
+
+        table.tabelaCinza td {
+            background-color: #d3d3d3;
+            width: 5%;
+            border: 1px;
+            border-style: solid;
+            text-align: center;
+            padding: 1.5%;
+        }
+
+        table.tabelaCinza .apertou {
+            background-color: #2c2c2c;
+        }
+
+        table.tabelaCinza .aleatorio {
+            background-color: #1abc9c;
+            color: white;
+            border-style: solid;
+            border-color: #1abc9c;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        tr td:nth-last-child(1){
+            white-space: normal;
+        }
+        tr td:nth-last-child(2){
+            white-space: normal;
+        }
+    </style>
     <script>
-    function refreshPage() {
-      setTimeout(function() {
-        window.location.reload();
-      }, 1000);
-    }
-
-    function atualizar() {
-      var linha = document.getElementsByTagName("tr");
-      var status = document.getElementsByClassName("pago");
-      for (var x = 1; x < linha.length - 1; x++) {
-        var xhr = new XMLHttpRequest();
-        var local = window.location.href;
-        local = local.substr(0, local.search("config"));
-        var url = local + "api/v1/bingo/" +
-          linha[x].getElementsByTagName("td")[0].textContent;
-        var id = linha[x].getElementsByTagName("td")[0].textContent;
-        var name = linha[x].getElementsByTagName("td")[1].textContent;
-        xhr.open("put", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        if (linha[x].getElementsByTagName("input")[0].checked) {
-          var data = JSON.stringify({
-            "id": id,
-            "name": name,
-            "pagamento": "Pago",
-            "statusPagamento": "true"
-          });
-        } else {
-          var data = JSON.stringify({
-            "id": id,
-            "name": name,
-            "pagamento": "Aberto",
-            "statusPagamento": "false"
-          });
+        function refreshPage() {
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
         }
-        xhr.send(data);
-      }
-      refreshPage();
-    }
 
-    function apagar() {
-      var linha = document.getElementsByTagName("tr");
-      var status = document.getElementsByClassName("pago");
-      for (var x = 1; x < linha.length - 1; x++) {
-        if (linha[x].getElementsByTagName("input")[1].checked) {
-          var local = window.location.href;
-          local = local.substr(0, local.search("config"));
-          var url = local + "api/v1/bingo/" +
-            linha[x].getElementsByTagName("td")[0].textContent;
-          var xhr = new XMLHttpRequest();
-          xhr.open("delete", url, true);
-          xhr.setRequestHeader("Content-Type", "application/json");
-          var data = JSON.stringify({});
-          xhr.send(data);
+        function atualizar() {
+            var linha = document.getElementsByTagName("tr");
+            var status = document.getElementsByClassName("pago");
+            for (var x = 1; x < linha.length - 1; x++) {
+                var xhr = new XMLHttpRequest();
+                var local = window.location.href;
+                local = local.substr(0, local.search("config"));
+                var url = local + "api/v1/bingo/" +
+                    linha[x].getElementsByTagName("td")[0].textContent;
+                var id = linha[x].getElementsByTagName("td")[0].textContent;
+                var name = linha[x].getElementsByTagName("td")[1].textContent;
+                xhr.open("put", url, true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                if (linha[x].getElementsByTagName("input")[0].checked) {
+                    var data = JSON.stringify({
+                        "id": id,
+                        "name": name,
+                        "pagamento": "Pago",
+                        "statusPagamento": "true"
+                    });
+                } else {
+                    var data = JSON.stringify({
+                        "id": id,
+                        "name": name,
+                        "pagamento": "Aberto",
+                        "statusPagamento": "false"
+                    });
+                }
+                xhr.send(data);
+            }
+            refreshPage();
         }
-        refreshPage();
-      }
-    }
 
-    function conf() {
-      var xhr = new XMLHttpRequest();
-      var local = window.location.href;
-      local = local.substr(0, local.search("config"));
-      var url = local + "conf/1";
-      xhr.open("put", url, true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      var data = JSON.stringify({
-        "id": 1,
-        "data": document.getElementsByClassName("config")[1].value,
-        "quantidadeJogos": document.getElementsByClassName("config")[2].value,
-        "name": null,
-        "valor": document.getElementsByClassName("config")[0].value,
-        "valorFixo": document.getElementsByClassName("config")[3].value,
-        "jogos": document.getElementsByClassName("config")[4].value
-      });
-      xhr.send(data);
-      refreshPage();
-    }
+        function apagar() {
+            var linha = document.getElementsByTagName("tr");
+            var status = document.getElementsByClassName("pago");
+            for (var x = 1; x < linha.length - 1; x++) {
+                if (linha[x].getElementsByTagName("input")[1].checked) {
+                    var local = window.location.href;
+                    local = local.substr(0, local.search("config"));
+                    var url = local + "api/v1/bingo/" +
+                        linha[x].getElementsByTagName("td")[0].textContent;
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("delete", url, true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    var data = JSON.stringify({});
+                    xhr.send(data);
+                }
+                refreshPage();
+            }
+        }
 
-    function enviar() {
-      var xhr = new XMLHttpRequest();
-      var local = window.location.href;
-      local = local.substr(0, local.search("config"));
-      var url = local + "api/v1/bingo/"
-      xhr.open("post", url, true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      var data = JSON.stringify({
-        "name": document.getElementsByTagName("input")[0].value
-      });
-      xhr.send(data);
-      refreshPage();
-    }
-  </script>
+        function conf() {
+            var xhr = new XMLHttpRequest();
+            var local = window.location.href;
+            local = local.substr(0, local.search("config"));
+            var url = local + "conf/1";
+            xhr.open("put", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            var data = JSON.stringify({
+                "id": 1,
+                "data": document.getElementsByClassName("config")[1].value,
+                "quantidadeJogos": document.getElementsByClassName("config")[2].value,
+                "name": null,
+                "valor": document.getElementsByClassName("config")[0].value,
+                "valorFixo": document.getElementsByClassName("config")[3].value,
+                "jogos": document.getElementsByClassName("config")[4].value
+            });
+            xhr.send(data);
+            refreshPage();
+        }
+
+        function enviar() {
+            var xhr = new XMLHttpRequest();
+            var local = window.location.href;
+            local = local.substr(0, local.search("config"));
+            var url = local + "api/v1/bingo/"
+            xhr.open("post", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            var data = JSON.stringify({
+                "name": document.getElementsByTagName("input")[0].value
+            });
+            xhr.send(data);
+            refreshPage();
+        }
+    </script>
 </head>
 
 <body>
@@ -188,7 +304,8 @@ td{
     <label id="stiloh1">Digite seu nome:</label>
     <input type="text">
     <input type="submit" value="Enviar" onclick="enviar()" enable>
-</center></br>
+</center>
+</br>
 
 <center>
     <h1 id="stiloh1" th:text="${jogos}"></h1>
@@ -215,10 +332,12 @@ td{
             <td th:text="${user.jogos}"></td>
             <td th:text="${'R$ '+{user.valor}}"></td>
             <td>
-                <center><input class="pago" type="checkbox" th:checked="${user.statusPagamento}"></input></center>
+                <center><input class="pago" type="checkbox" th:checked="${user.statusPagamento}"></input>
+                </center>
             </td>
             <td>
-                <center><input class="pago" type="checkbox"></input></center>
+                <center><input class="pago" type="checkbox"></input>
+                </center>
             </td>
         </tr>
         <tr>
@@ -243,53 +362,53 @@ td{
 
 </center>
 <div>
-<label id="stiloh1">Valor:</label>
-<input class="config" type="text" th:value="${configValor}">
-<input type="submit" onclick="conf()" enable>
-</br>
-<label id="stiloh1">Data:</label>
-<input class="config" type="text" th:value="${configData}">
-<input type="submit" onclick="conf()" enable>
-</br>
-<label id="stiloh1">Jogos:</label>
-<input class="config" type="text" th:value="${configJogos}">
-<input type="submit" onclick="conf()" enable>
-</br>
-<label id="stiloh1">Valor Fixo:</label>
-<input class="config" type="text" th:value="${configValorFixo}">
-<input type="submit" onclick="conf()" enable>
-</br>
-<label id="stiloh1">Permitir jogos:</label>
-<input class="config" type="text" th:value="${permitirJogos}">
-<input type="submit" onclick="conf()" enable>
+    <label id="stiloh1">Valor:</label>
+    <input class="config" type="text" th:value="${configValor}">
+    <input type="submit" onclick="conf()" enable>
+    </br>
+    <label id="stiloh1">Data:</label>
+    <input class="config" type="text" th:value="${configData}">
+    <input type="submit" onclick="conf()" enable>
+    </br>
+    <label id="stiloh1">Jogos:</label>
+    <input class="config" type="text" th:value="${configJogos}">
+    <input type="submit" onclick="conf()" enable>
+    </br>
+    <label id="stiloh1">Valor Fixo:</label>
+    <input class="config" type="text" th:value="${configValorFixo}">
+    <input type="submit" onclick="conf()" enable>
+    </br>
+    <label id="stiloh1">Permitir jogos:</label>
+    <input class="config" type="text" th:value="${permitirJogos}">
+    <input type="submit" onclick="conf()" enable>
 </div>
 <script>
-      var atual = new Date();
-      var data = document.getElementsByClassName("data")[0].innerHTML.substr(14).split("/");
-      data = new Date(data[2] + "-" + data[1] + "-" + data[0]);
-      var dia = data - atual;
-      dia = dia / (1000 * 3600 * 24);
-      if (dia >= -1) {
-        document.getElementsByClassName("data")[0].innerHTML =
-          document.getElementsByClassName("data")[0].innerHTML +
-          " | Restam " +
-          (parseInt(dia)+1) +
-          " Dias.";
-      } else {
-        document.getElementsByClassName("data")[0].innerHTML =
-          document.getElementsByClassName("data")[0].innerHTML + " | Tempo excedido!";
-        document.getElementsByClassName("data")[0].setAttribute("id", "aberto");
-      }
-      var table = document.getElementsByTagName("td");
-      for (var x = 0; x < table.length - 1; x++) {
-        if (table[x].innerHTML === "Aberto") {
-          table[x].setAttribute('id', 'aberto')
+        var atual = new Date();
+        var data = document.getElementsByClassName("data")[0].innerHTML.substr(14).split("/");
+        data = new Date(data[2] + "-" + data[1] + "-" + data[0]);
+        var dia = data - atual;
+        dia = dia / (1000 * 3600 * 24);
+        if (dia >= -1) {
+            document.getElementsByClassName("data")[0].innerHTML =
+                document.getElementsByClassName("data")[0].innerHTML +
+                " | Restam " +
+                (parseInt(dia) + 1) +
+                " Dias.";
+        } else {
+            document.getElementsByClassName("data")[0].innerHTML =
+                document.getElementsByClassName("data")[0].innerHTML + " | Tempo excedido!";
+            document.getElementsByClassName("data")[0].setAttribute("id", "aberto");
         }
-        if (table[x].innerHTML === "Pago") {
-          table[x].setAttribute('id', 'pago')
+        var table = document.getElementsByTagName("td");
+        for (var x = 0; x < table.length - 1; x++) {
+            if (table[x].innerHTML === "Aberto") {
+                table[x].setAttribute('id', 'aberto')
+            }
+            if (table[x].innerHTML === "Pago") {
+                table[x].setAttribute('id', 'pago')
+            }
         }
-      }
-</script>
+    </script>
 </body>
 
 </html>
