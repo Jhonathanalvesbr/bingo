@@ -197,11 +197,22 @@
         function refreshPage() {
             setTimeout(function () {
                 window.location.reload()
-            }, 1000);
+            }, 2000);
         }
 
         var numeros = "";
         function enviar() {
+            var x = 0;
+            d3.select(".tabelaCompleta").selectAll("tr").each(function(d, i) {
+                if (d3.select(this).select("td").node() != null && d3.select(this).select("td").text() ===  d3.select("input").property("value")) {
+                    x = 1;
+                    return;
+                }
+            });
+            if(x ==1){
+                alert("Nome já existe!");
+                return;
+            }
             if (document.getElementsByTagName("input")[0].value == "") {
                 alert("Digite um nome!");
                 return;
@@ -233,7 +244,7 @@
                 }
             }
             for (var n = 1; n < numerosCompleto.length; n++) {
-                if(numerosCompleto[n].toString() == numerosCompleto[n-1].toString() && numerosCompleto[n].toString() != "Jogo aleatório!"){
+                if(numerosCompleto[n].toString() == numerosCompleto[n-1].toString() && numerosCompleto[n].toString() != "Jogo aleatório!" && numerosCompleto[n].toString() != ""){
                     alert("Escolha números diferentes!");
                     return;
                 }
@@ -244,11 +255,12 @@
 
             }
 
-            if (document.getElementById("escolherJogo").checked === true && qntNumeros.length < 15 * qnt) {
+            if (document.getElementById("escolherJogo") != null && document.getElementById("escolherJogo").checked === true && qntNumeros.length < 15 * qnt) {
                 alert("Escolha 15 números!");
                 return;
             }
-            if (numeros.replaceAll("\n", "") == "") {
+
+            if (d3.select("#escolherJogo")._groups[0][0] != null && numeros.replaceAll("\n", "") == "") {
 
                 var qnt = parseInt(
                     d3
@@ -351,6 +363,9 @@
         }
 
         function adicionarJogos() {
+        if(d3.select("#escolherJogo")._groups[0][0] == null){
+            return;
+        }
             var qnt = parseInt(
                 d3
                     .select("#escolherJogo")
@@ -461,7 +476,10 @@
 
 
         d3.select("#escolherJogo").on("click", function (d, i) {
-            if (d3.select("#escolherJogo").node().checked == true) {
+            if(d3.select("#escolherJogo").node() == null){
+                return;
+            }
+            else if (d3.select("#escolherJogo").node().checked == true) {
                 d3.select("#table").attr("class", "visivel");
             } else {
                 d3.select("#table").attr("class", "invisivel");
@@ -510,7 +528,7 @@
 
 
 
-        if (d3.select("#escolherJogo").node().checked == true) {
+        if(d3.select("#escolherJogo").node() != null && d3.select("#escolherJogo").node().checked == true) {
             d3.select("#table").attr("class", "visivel");
         } else {
             d3.select("#table").attr("class", "invisivel");
