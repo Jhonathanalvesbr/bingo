@@ -443,7 +443,7 @@
             <td th:text="${'R$ '+{user.valor}}"></td>
         </tr>
     </table>
-    <h2 id="stiloh1" class="quantidadeTotalJogos">Quantidade total de jogos: 1</h2>
+    <h2 id="stiloh1" class="quantidadeTotalJogos">Quantidade total de jogos no bolão: 1</h2>
     <h2 id="stiloh1" class="data" th:text="|#Data Limite: ${data}"></h2>
     <h3 id="stiloh1">PIX: 11361224606</h3>
     <img th:attr="permitirJogos=${permitirJogos}" src="https://raw.githubusercontent.com/Jhonathanalvesbr/bingo/main/pix.png" alt="PIX" width="250"
@@ -451,7 +451,7 @@
 </center>
 <script>
         if(d3.select("img").attr("permitirjogos") == 1)
-            d3.select(".quantidadeTotalJogos").text("Quantidade total de jogos: " + (d3.selectAll(".h1")._groups[0][1].innerHTML.split(": ")[1]*(d3.select(".tabelaCompleta").selectAll("tr").size()-1)));
+            d3.select(".quantidadeTotalJogos").text("Quantidade total de jogos no bolão: " + (d3.selectAll(".h1")._groups[0][1].innerHTML.split(": ")[1]*(d3.select(".tabelaCompleta").selectAll("tr").size()-1)));
 
         var atual = new Date();
         var data = document.getElementsByClassName("data")[0].innerHTML.substr(14).split("/");
