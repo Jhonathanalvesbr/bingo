@@ -24,7 +24,7 @@ public class Controlador {
 
     @PostMapping("/")
     public PessoaDTO criarPessoa(@RequestBody @Valid PessoaDTO pessoaDTO) throws PessoaExiste {
-        pessoaDTO.setStatusPagamento(false);
+        pessoaDTO.setStatus_Pagamento(false);
         pessoaDTO.setPagamento("Aberto");
         pessoaDTO = pessoaServico.criarPessoa(pessoaDTO);
         this.pessoa = pessoaServico.listAll();
@@ -38,7 +38,7 @@ public class Controlador {
         }
         PessoaDTO pessoaDTO = new PessoaDTO();
         pessoaDTO.setName(name);
-        pessoaDTO.setStatusPagamento(false);
+        pessoaDTO.setStatus_Pagamento(false);
         pessoaDTO.setPagamento("Aberto");
         pessoaServico.criarPessoa(pessoaDTO);
         this.pessoa = pessoaServico.listAll();

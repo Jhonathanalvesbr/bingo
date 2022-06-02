@@ -18,7 +18,7 @@ public class Pessoa {
     private String name;
     private String pagamento;
     private double valor;
-    private boolean statusPagamento;
+    private boolean status_Pagamento;
     private String jogos;
 }
 
