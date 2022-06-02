@@ -227,14 +227,14 @@
                         "id": id,
                         "name": name,
                         "pagamento": "Pago",
-                        "statusPagamento": "true"
+                        "statuspagamento": "true"
                     });
                 } else {
                     var data = JSON.stringify({
                         "id": id,
                         "name": name,
                         "pagamento": "Aberto",
-                        "statusPagamento": "false"
+                        "statuspagamento": "false"
                     });
                 }
                 xhr.send(data);
@@ -332,7 +332,7 @@
             <td th:text="${user.jogos}"></td>
             <td th:text="${'R$ '+{user.valor}}"></td>
             <td>
-                <center><input class="pago" type="checkbox" th:checked="${user.statusPagamento}"></input>
+                <center><input class="pago" type="checkbox" th:checked="${user.statuspagamento}"></input>
                 </center>
             </td>
             <td>
