@@ -20,6 +20,6 @@ public class PessoaDTO {
     private String name;
     private String pagamento;
     private double valor;
-    private boolean status_Pagamento;
+    private boolean statuspagamento;
     private String jogos;
 }

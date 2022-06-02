@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-06-02T08:27:03-0300",
+    date = "2022-06-02T09:10:22-0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.8 (Oracle Corporation)"
 )
 public class PessoaMapearImpl implements PessoaMapear {
@@ -23,7 +23,7 @@ public class PessoaMapearImpl implements PessoaMapear {
         pessoa.setName( pessoaDTO.getName() );
         pessoa.setPagamento( pessoaDTO.getPagamento() );
         pessoa.setValor( pessoaDTO.getValor() );
-        pessoa.setStatus_Pagamento( pessoaDTO.isStatus_Pagamento() );
+        pessoa.setStatuspagamento( pessoaDTO.isStatuspagamento() );
         pessoa.setJogos( pessoaDTO.getJogos() );
 
         return pessoa;
@@ -41,7 +41,7 @@ public class PessoaMapearImpl implements PessoaMapear {
         pessoaDTO.setName( pessoa.getName() );
         pessoaDTO.setPagamento( pessoa.getPagamento() );
         pessoaDTO.setValor( pessoa.getValor() );
-        pessoaDTO.setStatus_Pagamento( pessoa.isStatus_Pagamento() );
+        pessoaDTO.setStatuspagamento( pessoa.isStatuspagamento() );
         pessoaDTO.setJogos( pessoa.getJogos() );
 
         return pessoaDTO;
